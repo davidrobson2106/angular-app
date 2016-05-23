@@ -4,18 +4,20 @@
   angular.module('angularApp')
     .controller('MainController', function($scope){
       $scope.message = 'this works';
-
+      
       $scope.diary = [
       ];
 
       $scope.newDiaryEntry = function() {
-        $scope.diary.push({'item':$scope.diaryEntry, 'done':false});
+        $scope.diary.push({'item':$scope.diaryEntry, 'date':new Date().toUTCString(), 'done':false});
         $scope.diaryEntry = '';
       };
 
-      $scope.removeToDo = function() {
-       $scope.todos = $scope.todos.filter(function(item) {
-          return !item.done;
+      console.log($scope.diary);
+
+      $scope.removeDiaryEntry = function() {
+       $scope.diary = $scope.diary.filter(function(foo) {
+          return !foo.done;
        })
     };
   })

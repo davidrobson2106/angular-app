@@ -4,9 +4,7 @@
     <!-- Bind controller to html -->
     <!-- Basic Bootstrap styles -->
      	<div class="col-xs-12">
-
-
-     		<h1>My Organiser</h1>
+     		<h1>Dear Diary</h1>
      		<!-- Basic Bootstrap form -->
      		<!-- Clicking submit will call addToDo function -->
      		<form name="frm" class="form-inline" ng-submit="newDiaryEntry()">
@@ -20,19 +18,19 @@
      			</div>
      			<div class="form-group">
      				<!-- Call removeToDo function on button click -->
-     				<button class="btn btn-default" ng-click="removeToDo()">Clear Completed</button>
+     				<button class="btn btn-secondary" ng-click="removeDiaryEntry()">Clear Completed</button>
      			</div>
      		</form>
-     		<ul class="list-unstyled">
-     		    <li ng-repeat="diaryEntry in diary | orderBy: item">
+     		<ul>
+     		    <li ng-repeat="foo in diary | orderBy: item">
      		    	<div class="checkbox">
      				    <label>
      				    	<!-- Bind checkbox to list items marked 'done' -->
-     				    	<input type="checkbox" ng-model="diary.done" />
-     				    	<!-- Add specific style if marked done -->
-     		        		<span ng-class="{'done':diary.done}">{{ diary.item }}</span>
+     				    	<input type="checkbox" ng-model="foo.done" />
      				    </label>
      				</div>
+              <span ng-class="{'done':foo.done}">{{ foo.item }}</span>
+              <div>{{foo.date}}</div>
      		    </li>
      		</ul>
      	</div>
