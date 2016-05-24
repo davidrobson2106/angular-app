@@ -1,4 +1,4 @@
-# angular-app
+# angular-app (Working Diary entry and removal)
 
 
 Initial set-up:
