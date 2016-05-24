@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('angularApp')
-    .controller('MainController', ['$scope', 'StringLimitService', function($scope, StringLimitService){
+    .controller('MainController', ['StringLimitService', function(StringLimitService){
       
       var self = this;
 
