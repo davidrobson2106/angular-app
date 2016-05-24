@@ -2,23 +2,36 @@
   'use strict';
 
   angular.module('angularApp')
-    .controller('MainController', function($scope){
-      $scope.message = 'this works';
+    .controller('MainController', ['$scope', 'StringLimitService', function($scope, StringLimitService){
       
-      $scope.diary = [
-      ];
+      var self = this;
 
-      $scope.newDiaryEntry = function() {
-        $scope.diary.push({'item':$scope.diaryEntry, 'date':new Date().toUTCString(), 'done':false});
-        $scope.diaryEntry = '';
+      self.diary = [
+      ];
+      
+      self.toggleCustom = function(i) {
+        self.diary[i].custom = self.diary[i].custom === false ? true: false;
       };
 
-      console.log($scope.diary);
+      self.newDiaryEntry = function() {
+        self.messageLimit = 10;
+        self.shortString  = StringLimitService.stringLimit(self.diaryEntry, 10);
 
-      $scope.removeDiaryEntry = function() {
-       $scope.diary = $scope.diary.filter(function(foo) {
+        if(self.diaryEntry.length > self.messageLimit) {
+          self.diaryEntryShort = self.shortString;
+        }
+        else {
+          self.diaryEntryShort = '';
+        }
+
+        self.diary.push({'item':self.diaryEntryShort, 'fullItem':self.diaryEntry, 'date':new Date().toUTCString(), 'done':false, 'custom':true});
+        self.diaryEntry = '';
+      };
+
+      self.removeDiaryEntry = function() {
+        self.diary = self.diary.filter(function(foo) {
           return !foo.done;
        })
     };
-  })
+  }])
 })();

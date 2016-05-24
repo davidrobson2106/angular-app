@@ -1,35 +1,38 @@
 <div class="container">
 
-  <div class="row">
-    <!-- Bind controller to html -->
-    <!-- Basic Bootstrap styles -->
-     	<div class="col-xs-12">
+  <div class="row" ng-controller="MainController as main">
+     	<div>
      		<h1>Dear Diary</h1>
-     		<!-- Basic Bootstrap form -->
-     		<!-- Clicking submit will call addToDo function -->
-     		<form name="frm" class="form-inline" ng-submit="newDiaryEntry()">
-     			<div class="form-group">
+
+     		<form name="frm" ng-submit="main.newDiaryEntry()">
+     			<div>
      				<!-- Bind form input to model -->
-     				<input class="form-control" type="text" name="diaryEntry" ng-model="diaryEntry" required>
+     				<input type="text" name="main.diaryEntry" ng-model="main.diaryEntry" required>
      			</div>
-     			<div class="form-group">
-     				<!-- Don't submit if nothing is in the input text box -->
-     				<button class="btn btn-primary" ng-disabled="frm.$invalid">Add Item</button>
+          <br>
+     			<div>
+     				<button  ng-disabled="frm.$invalid">Add Item</button>
      			</div>
-     			<div class="form-group">
-     				<!-- Call removeToDo function on button click -->
-     				<button class="btn btn-secondary" ng-click="removeDiaryEntry()">Clear Completed</button>
+          <br>
+     			<div>
+     				<button ng-click="main.removeDiaryEntry()">Clear entry</button>
      			</div>
      		</form>
      		<ul>
-     		    <li ng-repeat="foo in diary | orderBy: item">
-     		    	<div class="checkbox">
+     		    <li ng-repeat="foo in main.diary | orderBy: item">
+     		    	<div>
      				    <label>
-     				    	<!-- Bind checkbox to list items marked 'done' -->
      				    	<input type="checkbox" ng-model="foo.done" />
      				    </label>
      				</div>
-              <span ng-class="{'done':foo.done}">{{ foo.item }}</span>
+              <span ng-show="foo.custom"  ng-class="{'done':foo.done}">
+                {{foo.item}}
+               </span>
+              <span ng-hide="foo.custom">
+                {{foo.fullItem}}
+              </span>
+              <button  ng-hide="!foo.custom && main.diaryEntry.length < main.messageLimit" ng-click="main.toggleCustom($index)">Read More</button>
+              <button  ng-hide="foo.custom && main.diaryEntry.length < main.messageLimit" ng-click="main.toggleCustom($index)">Read Less</button>
               <div>{{foo.date}}</div>
      		    </li>
      		</ul>
